@@ -1,13 +1,13 @@
-# CLAUDE.MD -- Academic Project Development with Claude Code
+# CLAUDE.MD -- Doctoral Research Project (Psychology & Public Health)
 
-<!-- HOW TO USE: Replace [BRACKETED PLACEHOLDERS] with your project info.
-     Customize Beamer environments and CSS classes for your theme.
-     Keep this file under ~200 lines (official guidance) — Claude loads it every session.
-     See the guide at docs/workflow-guide.html for full documentation. -->
+<!-- Keep this file under ~200 lines (official guidance) — Claude loads it every session. -->
 
-**Project:** [YOUR PROJECT NAME]
-**Institution:** [YOUR INSTITUTION]
+**Project:** Emotional and psychological well-being of professionals who search for disappeared persons in Colombia (doctoral thesis)
+**Institution:** Universidad Pública de Navarra (UPNA) — PhD programme in Health Sciences
+**Discipline:** Psychology and public health (psychotraumatology, occupational mental health, epidemiology)
 **Branch:** main
+
+**Language.** Talk with the author in Spanish. Manuscripts, reviewer reports and code comments are in academic English.
 
 ---
 
@@ -28,8 +28,8 @@ and the usual outcome is that all four get thrown away.
 ## Core Principles
 
 - **Plan first** -- enter plan mode before non-trivial tasks; save plans to `quality_reports/plans/`
-- **Verify after** -- when a task changes a `.tex`, `.qmd`, or `.R` file, compile or render it and confirm the output before reporting done
-- **Single source of truth** -- Beamer `.tex` is authoritative; Quarto `.qmd` derives from it
+- **Verify after** -- when a task changes an `.R` file, run it and confirm the output before reporting done; when it touches a manuscript, re-convert the `.docx` and check the result
+- **Single source of truth** -- the Word manuscript (`.docx`) is authoritative for text; the R scripts are authoritative for every number, table and figure. A number in the manuscript must be traceable to an R output
 - **Quality gates** -- nothing ships below 80/100
 - **[LEARN] tags** -- when corrected, save `[LEARN:category] wrong → right` to [MEMORY.md](MEMORY.md)
 
@@ -59,53 +59,66 @@ Nothing clears work until it has a row in [`quality_reports/qualification/LEDGER
 
 ---
 
+## Research Context
+
+- **Population:** professionals and staff involved in the search for disappeared persons in Colombia (forensic, psychosocial, legal and field teams). Small, identifiable population: treat every output as re-identification-sensitive ([`confidential-data.md`](.claude/rules/confidential-data.md)).
+- **Study types in the thesis:** quantitative cross-sectional survey, psychometric validation, qualitative, mixed methods, and a scoping review.
+- **Reporting guidelines (EQUATOR):** STROBE (cross-sectional), COSMIN (psychometric validation), COREQ / SRQR (qualitative), GRAMMS (mixed methods), PRISMA-ScR (scoping review).
+- **Style:** APA 7th edition unless the target journal says otherwise.
+- **Target journals:** profiles in [`journal-profiles.md`](.claude/references/journal-profiles.md) (section "Psychology & Public Health"); discipline defaults in [`discipline-cards.md`](.claude/references/discipline-cards.md).
+- **Causal methods:** the owner ruling in [`meta-governance.md`](.claude/rules/meta-governance.md) stands — no guidance on DiD, IV, RD, synthetic control, event studies or matching-as-identification.
+
+---
+
 ## Folder Structure
 
 ```
-[YOUR-PROJECT]/
+mi-proyecto/
 ├── CLAUDE.MD                    # This file
 ├── .claude/                     # Rules, skills, agents, hooks
 ├── Bibliography_base.bib        # Centralized bibliography
 ├── Figures/                     # Figures and images
-├── Preambles/header.tex         # LaTeX headers
-├── Slides/                      # Beamer .tex files
-├── Quarto/                      # RevealJS .qmd files + theme
-├── docs/                        # GitHub Pages (auto-generated)
-├── scripts/                     # Utility scripts + analysis code (numbered stages)
+├── scripts/                     # Utility scripts + R analysis code (numbered stages in scripts/R/)
 ├── output/                      # Generated tables, figures, logs (created by the code)
-├── quality_reports/             # Plans, session logs, merge reports, decision records
+├── quality_reports/             # Plans, session logs, review reports, decision records
 ├── explorations/                # Research sandbox (see rules)
 ├── templates/                   # Session log, quality report templates
-└── master_supporting_docs/      # Papers and existing slides
+├── master_supporting_docs/      # Papers and supporting documents
+└── Slides/ Quarto/ Preambles/ docs/   # Template leftovers (LaTeX/Quarto) — not used in this project
 ```
+
+---
+
+## Working with Word manuscripts
+
+Agents cannot read `.docx` directly. To review a manuscript, convert it to Markdown in the session scratchpad (never in the repo):
+
+```bash
+pandoc "manuscript.docx" -t gfm --track-changes=all -o "<scratchpad>/manuscript.md"
+```
+
+- Reviewers read the converted file; findings cite section headings and quoted text, not line numbers of the conversion.
+- Do not edit a `.docx` unless asked. When asked, use the `docx` skill and prefer tracked changes so the author accepts or rejects each one in Word.
 
 ---
 
 ## Commands
 
 ```bash
-# LaTeX (3-pass, XeLaTeX only)
-cd Slides && TEXINPUTS=../Preambles:$TEXINPUTS xelatex -interaction=nonstopmode file.tex
-BIBINPUTS=..:$BIBINPUTS bibtex file
-TEXINPUTS=../Preambles:$TEXINPUTS xelatex -interaction=nonstopmode file.tex
-TEXINPUTS=../Preambles:$TEXINPUTS xelatex -interaction=nonstopmode file.tex
+# R analysis (R must be on PATH — Rscript is not on PATH on this machine yet)
+Rscript scripts/R/00_run_all.R
 
-# Deploy Quarto to GitHub Pages
-./scripts/sync_to_docs.sh LectureN
+# Word → Markdown for review
+pandoc "file.docx" -t gfm --track-changes=all -o "<scratchpad>/file.md"
 
-# Quality score
-python3 scripts/quality_score.py Quarto/file.qmd
-
-# Palette sync (LaTeX ↔ SCSS)
-./scripts/check-palette-sync.sh
+# Quality score (R scripts)
+python scripts/quality_score.py scripts/R/file.R
 
 # Backtest: is the repo internally consistent and currently true?
 # (surface-sync + skill-integrity + model-versions + links + spec-conformance + staleness + repo-hygiene + derived-counts + ledger-coverage + hook-battery)
 # Run this after ANY change. Also runs in pre-commit and CI.
 ./scripts/backtest.sh
 ```
-
-**Palette contract:** color names in `Preambles/header.tex` must match SCSS variables in `Quarto/theme-template.scss`. See [`Preambles/README.md`](Preambles/README.md).
 
 ---
 
@@ -117,49 +130,26 @@ python3 scripts/quality_score.py Quarto/file.qmd
 | 90 | PR | Ready for deployment |
 | 95 | Excellence | Aspirational |
 
-Enforced by `/commit` (halts + asks for override) **and** — once you run `./scripts/install-hooks.sh` — by a real git pre-commit hook (`.githooks/pre-commit`) that runs the backtest gate suite (the hook battery only when a hook, its settings or the battery itself is staged; CI always runs everything) plus the quality (≥80) gate on every commit. Bypass sparingly with `SKIP_QUALITY_GATE=1` or `--no-verify`.
+Enforced by `/commit` (halts + asks for override) **and** — once you run `./scripts/install-hooks.sh` — by a real git pre-commit hook (`.githooks/pre-commit`) that runs the backtest gate suite (the hook battery only when a hook, its settings or the battery itself is staged; CI always runs everything) plus the quality (≥80) gate on every commit. Bypass sparingly with `SKIP_QUALITY_GATE=1` or `--no-verify`. Word manuscripts are not auto-scored; they are reviewed with the skills below.
 
 ---
 
 ## Skills Quick Reference
 
-The full table of all skills lives in [README.md](README.md#skills-claudeskills). Most-used, by workflow:
+The full table of all skills lives in [README.md](README.md#skills-claudeskills). Most-used for this project:
 
-- **Slides / teaching:** `/create-lecture` `/compile-latex` `/deploy` `/qa-quarto` `/slide-excellence` `/syllabus` `/teach-from-paper` `/scaffold-exercises`
-- **Papers / review:** `/review-paper` (`--peer`) `/seven-pass-review` `/respond-to-referees` `/verify-claims` `/proofread` `/humanize` `/submission-disclosures`
-- **Data / reproducibility:** `/data-analysis` `/simulation-study` `/audit-reproducibility` `/diagnose` `/replication-package` `/capture-environment` `/power-analysis` `/disclosure-check`
+- **Manuscripts / review:** `/review-paper` (`--peer PTRP|JTS|EJPT|BMCPH|RPSP`) `/seven-pass-review` `/respond-to-referees` `/verify-claims` `/proofread` `/humanize` `/submission-disclosures`
+- **Data / reproducibility (R):** `/data-analysis` `/review-r` `/audit-reproducibility` `/diagnose` `/replication-package` `/capture-environment` `/power-analysis` `/disclosure-check`
 - **Research / writing:** `/interview-me` `/lit-review` `/research-ideation` `/preregister` `/grant-proposal` `/data-management-plan`
 - **Verification / rigor:** `/vaccinate` `/challenge` `/oracle-review` `/adjudicate-review` `/differential-audit` `/blast-radius` `/verify-artifact` `/credible-claims` `/deep-audit`
-- **Meta / workflow:** `/commit` `/learn` `/new-skill` `/checkpoint` `/context-status` `/deep-audit` `/coauthor-brief` `/triage-inbox` `/issues`
+- **Meta / workflow:** `/commit` `/learn` `/new-skill` `/checkpoint` `/context-status` `/coauthor-brief` `/triage-inbox` `/issues`
 
-Stata (`/stata-replication`), R packages (`/r-package-check`), TikZ (`/extract-tikz`, `/new-diagram`), and more — see the README for the complete index.
-
----
-
-<!-- CUSTOMIZE: Replace placeholder rows ([your-env], [.your-class]) with your own.
-     Delete the rows marked "(example — delete)" once you've added yours. -->
-
-## Beamer Custom Environments
-
-| Environment | Effect | Use Case |
-| --- | --- | --- |
-| `[your-env]` | [Description] | [When to use] |
-| `keybox` | Gold background box | Key points *(example — delete)* |
-| `definitionbox[Title]` | Blue-bordered titled box | Formal definitions *(example — delete)* |
-
-## Quarto CSS Classes
-
-| Class | Effect | Use Case |
-| --- | --- | --- |
-| `[.your-class]` | [Description] | [When to use] |
-| `.smaller` | 85% font | Dense content *(example — delete)* |
-| `.positive` | Green bold | Good annotations *(example — delete)* |
+Slide, LaTeX and Quarto skills remain installed but are not part of this project's workflow.
 
 ---
 
 ## Current Project State
 
-| Lecture | Beamer | Quarto | Key Content |
-| --- | --- | --- | --- |
-| HelloWorld *(sample — delete when ready)* | `HelloWorld.tex` | `HelloWorld.qmd` | Minimal deck to verify setup |
-| 1: [Topic] | `Lecture01_Topic.tex` | `Lecture1_Topic.qmd` | [Brief description] |
+| Study | Type | Manuscript (.docx) | R scripts | Status |
+| --- | --- | --- | --- | --- |
+| [Study 1] | [e.g., scoping review] | [file] | [scripts/R/...] | [status] |

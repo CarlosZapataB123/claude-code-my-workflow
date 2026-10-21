@@ -7,7 +7,7 @@ Calibration data for the `/review-paper --peer [journal]` simulated peer-review 
 
 **How this file is used.** The `editor` agent reads this file before each `--peer` run, picks the requested `[journal]`, and uses its Referee-pool weights + Typical concerns to select two referees with different dispositions and to seed their pet-peeve priors.
 
-**Customizing for your field.** This file ships **eight profiles**: five econ (AER, QJE, JPE, ECMA, ReStud) and three political science (APSR, AJPS, JOP). To use `--peer` for another field (finance, biology, CS, etc.), copy `templates/journal-profile-template.md` into a new section below, fill in the schema, and reference it by the short name you define. See the [Field adaptation](#field-adaptation) section at the bottom.
+**Customizing for your field.** This file ships **thirteen profiles**: five econ (AER, QJE, JPE, ECMA, ReStud), three political science (APSR, AJPS, JOP), and five psychology & public health (PTRP, JTS, EJPT, BMCPH, RPSP). To use `--peer` for another field (finance, biology, CS, etc.), copy `templates/journal-profile-template.md` into a new section below, fill in the schema, and reference it by the short name you define. See the [Field adaptation](#field-adaptation) section at the bottom.
 
 ---
 
@@ -312,9 +312,190 @@ Three flagship general-interest political-science journals. The `paper_type` tax
 
 ---
 
+## Psychology & Public Health
+
+Five target journals for the doctoral project on the well-being of professionals who search for disappeared persons in Colombia. Added 2026-10-21. Scope statements were checked against each journal's or society's own page on that date; anything marked **(to verify)** was not confirmed from an official source and must be checked against the current author instructions before submission. No acceptance rates are given because none were verified.
+
+Paper types here resolve to `cross-sectional`, `psychometric-validation`, `qualitative`, `mixed-methods`, or `scoping-review` (see `methods-referee.md`). The reporting guideline for each type is a desk-level expectation at all five journals.
+
+### Psychological Trauma: Theory, Research, Practice, and Policy (PTRP)
+
+**Short name:** `PTRP`
+
+**Focus.** APA journal (Division 56, Trauma Psychology) publishing empirical research on the psychological effects of trauma, as an interdisciplinary forum linking science, theory, practice and policy. Topics include assessment and diagnosis, treatment, epidemiology, health services and cultural competence.
+
+**Bar.** The journal states that research reports must use rigorous designs, rest on good theory and integrate theory and data. Manuscripts that do not follow the submission guidelines may be returned without review. APA Style, 7th edition.
+
+**Domain-referee adjustments.**
+- Substance 20 → 25 (theory–data integration is an explicit criterion)
+- Lit positioning 25 → 20
+- Fit 10 → 10 (unchanged; trauma focus must be central, not incidental)
+
+**Methods-referee adjustments.**
+- Cross-sectional: Measurement 25 → 30 (instrument validity in the population is load-bearing in trauma research)
+- APA Journal Article Reporting Standards (JARS-Quant / JARS-Qual / JARS-Mixed) expected alongside EQUATOR guidelines **(to verify)**
+
+**Typical concerns.**
+- "What theory frames the hypotheses, and do the results speak back to it?"
+- "Is trauma exposure measured, or assumed from occupation?"
+- "Are screening instruments being read as diagnoses?"
+- "What does this mean for practice or policy with this population?"
+
+**Referee-pool weights.**
+- MEASUREMENT: 0.25
+- THEORY: 0.25
+- CREDIBILITY: 0.20
+- POLICY: 0.15
+- SKEPTIC: 0.10
+- STRUCTURAL: 0.05
+
+**Table format override.** APA 7 tables: numbered and titled above, notes below, exact p-values, effect sizes with confidence intervals.
+
+---
+
+### Journal of Traumatic Stress (JTS)
+
+**Short name:** `JTS`
+
+**Focus.** Official journal of the International Society for Traumatic Stress Studies (ISTSS). An interdisciplinary forum for peer-reviewed original papers on biopsychosocial aspects of trauma: theory, research, treatment, prevention, education and training, and legal and policy concerns.
+
+**Bar.** A field-defining trauma journal. Expects a clear contribution to traumatic-stress knowledge and methodological care; short-report formats exist **(to verify current article types and word limits)**.
+
+**Domain-referee adjustments.**
+- Contribution 30 → 35 (it must advance traumatic-stress knowledge, not only document distress in a new group)
+- External validity 15 → 15 (unchanged)
+- Fit 10 → 5
+
+**Methods-referee adjustments.**
+- Psychometric-validation: Structural validity 30 → 35
+- Cross-sectional: Inference & reporting 20 → 25
+
+**Typical concerns.**
+- "What does this add to what we know about secondary or vicarious traumatisation?"
+- "Is PTSD (or STS) measured against current diagnostic criteria with a validated instrument?"
+- "Are the analyses adequate for the sample size?"
+- "Is the sample described well enough to judge generalisability?"
+
+**Referee-pool weights.**
+- MEASUREMENT: 0.30
+- CREDIBILITY: 0.25
+- THEORY: 0.15
+- SKEPTIC: 0.15
+- POLICY: 0.10
+- STRUCTURAL: 0.05
+
+**Table format override.** APA Style **(to verify edition and any journal-specific rules)**.
+
+---
+
+### European Journal of Psychotraumatology (EJPT)
+
+**Short name:** `EJPT`
+
+**Focus.** Peer-reviewed, open-access, interdisciplinary journal owned by the European Society for Traumatic Stress Studies (ESTSS). Covers understanding, preventing and treating the consequences of stress and trauma, including PTSD, depression, substance use and burnout. It explicitly welcomes contributions from outside Europe and from mental health, the social sciences, and health and welfare services. Accepts study protocols and meta-analyses, among other article types.
+
+**Bar.** Interdisciplinary relevance plus open-research practice. Since a 2020 editorial (Olff, doi:10.1080/20008198.2020.1844955) the journal has promoted open research: data availability statements, FAIR data and Open Science Badges. Article processing charge applies **(to verify amount and waivers)**.
+
+**Domain-referee adjustments.**
+- External validity 15 → 20 (non-European settings are welcome when the transferable lesson is explicit)
+- Fit 10 → 5 (broad scope)
+
+**Methods-referee adjustments.**
+- All types: Transparency / reporting dimension +5 (open-research policy)
+- Scoping-review: protocol registration expected
+
+**Typical concerns.**
+- "Is there a data availability statement, and can the data or materials be shared?"
+- "Was the study or review protocol preregistered?"
+- "What does this setting teach readers working in other contexts?"
+- "Is burnout distinguished from trauma-related outcomes?"
+
+**Referee-pool weights.**
+- CREDIBILITY: 0.25
+- MEASUREMENT: 0.25
+- POLICY: 0.20
+- THEORY: 0.10
+- SKEPTIC: 0.15
+- STRUCTURAL: 0.05
+
+**Table format override.** APA Style **(to verify)**.
+
+---
+
+### BMC Public Health (BMCPH)
+
+**Short name:** `BMCPH`
+
+**Focus.** Open-access BMC (Springer Nature) journal covering the epidemiology and determinants of health, including occupational and mental health, health services and health policy. Publishes sound research regardless of perceived novelty **(to verify current editorial policy wording)**.
+
+**Bar.** Methodological soundness and complete reporting rather than novelty. BMC journals ask authors to follow the EQUATOR reporting guidelines and to submit the completed checklist; structured abstract; mandatory declarations section (ethics approval and consent, data availability, competing interests, funding, author contributions) **(to verify exact requirements and abstract word limit)**. Article processing charge applies.
+
+**Domain-referee adjustments.**
+- Contribution 30 → 20 (soundness over novelty)
+- Substance 20 → 25
+- External validity 15 → 20 (public-health relevance)
+
+**Methods-referee adjustments.**
+- Cross-sectional: Sampling & participants 25 → 30; Transparency 10 → 15 (STROBE checklist)
+- Qualitative: COREQ/SRQR checklist is a desk-level requirement
+
+**Typical concerns.**
+- "Is the reporting checklist complete, and does each item point to where it is addressed?"
+- "Are ethics approval and consent stated with the committee name and reference number?"
+- "Is the sampling frame described, and is the response rate reported?"
+- "What are the public-health implications, stated within the data's support?"
+
+**Referee-pool weights.**
+- CREDIBILITY: 0.25
+- POLICY: 0.25
+- MEASUREMENT: 0.20
+- SKEPTIC: 0.15
+- THEORY: 0.10
+- STRUCTURAL: 0.05
+
+**Table format override.** BMC house style; Vancouver-style numbered references **(to verify)**.
+
+---
+
+### Revista Panamericana de Salud Pública / Pan American Journal of Public Health (RPSP)
+
+**Short name:** `RPSP`
+
+**Focus.** Peer-reviewed, open-access journal of the Pan American Health Organization (PAHO). Public health in the Americas, including Latin America. Accepts manuscripts in English, Spanish or Portuguese, and its instructions strongly recommend writing in one's native language. No charge to authors; free to readers; CC BY-NC-ND 3.0 IGO licence.
+
+**Bar.** Relevance to public health in the Americas and to PAHO priorities, with clear implications for health policy or services in the region. Instructions point to the EQUATOR Network, the ICMJE recommendations and the Declaration of Helsinki **(to verify which checklists are mandatory, article types and word limits in the current instructions, version 2026-04-30)**.
+
+**Domain-referee adjustments.**
+- External validity 15 → 25 (regional public-health relevance is the binding constraint)
+- Lit positioning 25 → 25 (unchanged; must engage with Latin American evidence)
+- Contribution 30 → 25
+- Fit 10 → 5
+
+**Methods-referee adjustments.**
+- All types: reporting-guideline adherence weighted as for BMCPH
+- Scoping-review: inclusion of regional databases (LILACS, SciELO) expected
+
+**Typical concerns.**
+- "What does this mean for health services or policy in Colombia and the region?"
+- "Does the literature review include Latin American sources (LILACS, SciELO)?"
+- "Are the recommendations feasible for the institutions concerned?"
+- "Is the ethics review by a recognised committee documented?"
+
+**Referee-pool weights.**
+- POLICY: 0.35
+- CREDIBILITY: 0.20
+- MEASUREMENT: 0.20
+- SKEPTIC: 0.10
+- THEORY: 0.10
+- STRUCTURAL: 0.05
+
+**Table format override.** Numbered references (NLM / Vancouver style suggested by the instructions' links) **(to verify)**.
+
+---
+
 ## Field adaptation
 
-Five of the eight profiles above are econ; three are political science. The **pipeline is field-agnostic** — nothing in `editor.md`, `domain-referee.md`, or `methods-referee.md` hard-codes economics. What varies by field is the journal profile.
+Five of the thirteen profiles above are econ, three are political science, and five are psychology & public health. The **pipeline is field-agnostic** — nothing in `editor.md`, `domain-referee.md`, or `methods-referee.md` hard-codes economics. What varies by field is the journal profile.
 
 **To adapt for a different field:**
 

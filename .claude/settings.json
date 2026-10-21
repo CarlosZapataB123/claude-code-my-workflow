@@ -2,10 +2,6 @@
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "permissions": {
     "allow": [
-      "Edit(**)",
-      "Write(**)",
-      "MultiEdit(**)",
-      "Bash(*)",
       "WebFetch(*)",
       "WebSearch",
       "Read(**)"
@@ -19,7 +15,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/git-guardrails.py",
+            "command": "python \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/git-guardrails.py",
             "timeout": 20
           }
         ]
@@ -29,7 +25,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/root-of-trust-guard.py",
+            "command": "python \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/root-of-trust-guard.py",
             "timeout": 20
           }
         ]
@@ -40,7 +36,7 @@
           {
             "type": "command",
             "if": "Bash(gh *)",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/issue-guard.py",
+            "command": "python \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/issue-guard.py",
             "timeout": 10
           }
         ]
@@ -62,7 +58,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/pre-compact.py",
+            "command": "python \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/pre-compact.py",
             "timeout": 10
           }
         ]
@@ -74,7 +70,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/post-compact-restore.py",
+            "command": "python \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/post-compact-restore.py",
             "timeout": 5
           }
         ]
@@ -84,12 +80,12 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session-handoff.py",
+            "command": "python \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session-handoff.py",
             "timeout": 5
           },
           {
             "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/open-issues.py",
+            "command": "python \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/open-issues.py",
             "timeout": 5
           }
         ]
@@ -100,7 +96,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session-handoff.py",
+            "command": "python \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session-handoff.py",
             "timeout": 5
           }
         ]
@@ -112,7 +108,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/context-monitor.py",
+            "command": "python \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/context-monitor.py",
             "timeout": 5
           }
         ]
@@ -122,7 +118,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/claim-reconcile.py",
+            "command": "python \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/claim-reconcile.py",
             "timeout": 5
           }
         ]
@@ -133,7 +129,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/log-reminder.py",
+            "command": "python \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/log-reminder.py",
             "timeout": 10
           }
         ]

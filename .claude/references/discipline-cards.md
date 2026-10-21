@@ -2,7 +2,7 @@
 
 Short reference cards naming each discipline's dominant paper-type frequencies, top journals, preregistration norms, and method conventions. Read by `/research-ideation`, `/interview-me`, and `/preregister` when the user gives a `paper_type` or domain hint without specifying a target journal.
 
-**Scope.** v1.8.0 ships two cards: **economics** and **political science**. Other social sciences (psychology, sociology, public health) are deferred indefinitely (owner-set scope, 2026-06-10: econ + closely related fields — do not build without an explicit owner ask). To add your own discipline, copy a card section, fill the four fields (paper-type frequencies, journals, preregistration norms, method conventions), and reference the new short-name from `journal-profiles.md` and `methods-referee.md`.
+**Scope.** v1.8.0 ships two cards: **economics** and **political science**. Sociology remains deferred (owner-set scope, 2026-06-10: econ + closely related fields — do not build without an explicit owner ask). **Psychology & public health** was added 2026-10-21 at the explicit request of this project's owner (doctoral project at UPNA). To add your own discipline, copy a card section, fill the four fields (paper-type frequencies, journals, preregistration norms, method conventions), and reference the new short-name from `journal-profiles.md` and `methods-referee.md`.
 
 **Maintenance.** When you add a journal profile to `journal-profiles.md`, cross-reference it here. When you add a paper type to `methods-referee.md`, cross-reference it here.
 
@@ -63,6 +63,39 @@ Short reference cards naming each discipline's dominant paper-type frequencies, 
 - Code: R is dominant; Stata still common in IR / comparative; Python rising for text-as-data work.
 
 **Cross-references.** `methods-referee.md` paper types: reduced-form, formal-theory, survey-experiment, theory+empirics, descriptive (structural is rare in poli-sci). `journal-profiles.md`: APSR, AJPS, JOP.
+
+---
+
+## Psychology & Public Health (`psych-pubhealth`)
+
+Calibrated to this project: psychotraumatology and occupational mental health of professionals who search for disappeared persons in Colombia. The shares below describe **this thesis's planned studies**, not a measured share of the field's literature.
+
+**Paper types (in this project).**
+
+| Type | Reporting guideline | Notes |
+|---|---|---|
+| Cross-sectional | STROBE | Survey of well-being, distress, burnout, secondary traumatic stress and correlates. Associations only. |
+| Psychometric-validation | COSMIN; ITC test-adaptation guidelines | Adaptation / validation of instruments for Colombian professionals. |
+| Qualitative | COREQ or SRQR | Interviews or focus groups with search professionals. |
+| Mixed-methods | GRAMMS | Explicit integration of a quantitative and a qualitative strand. |
+| Scoping-review | PRISMA-ScR (+ JBI methodology) | Mapping the evidence on the mental health of professionals exposed to others' trauma. |
+
+**Dominant journals (shipped in `journal-profiles.md`).** PTRP, JTS, EJPT, BMCPH, RPSP.
+
+**Preregistration norms.**
+- **Scoping reviews:** register or publish the protocol (OSF, or a journal protocol). PROSPERO does not accept scoping reviews.
+- **Quantitative observational studies:** preregistration on OSF is increasingly expected (strongly encouraged at EJPT, which promotes open research), not a uniform requirement.
+- **Qualitative studies:** preregistration uncommon; a transparent analytic plan and an audit trail are expected instead.
+
+**Method conventions.**
+- Style: APA 7th edition (PTRP, JTS, EJPT); Vancouver/NLM numbered references at BMCPH and RPSP (to verify against current author instructions).
+- Report exact p-values, effect sizes with 95% confidence intervals, and reliability for the study sample (omega preferred when the measurement model supports it).
+- Submit the completed reporting-guideline checklist with the manuscript.
+- Ethics: committee name and approval reference, informed consent, and protection against re-identification in a small professional population.
+- Code: R is the analysis language for this project (`lavaan`, `psych`, `mice`, `survey`); qualitative analysis software is recorded in Methods.
+- Causal-identification designs (DiD, IV, RD, synthetic control, event studies, matching-as-identification) are out of scope for this card per the owner ruling in `meta-governance.md`.
+
+**Cross-references.** `methods-referee.md` paper types: cross-sectional, psychometric-validation, qualitative, mixed-methods, scoping-review. `journal-profiles.md`: PTRP, JTS, EJPT, BMCPH, RPSP.
 
 ---
 
