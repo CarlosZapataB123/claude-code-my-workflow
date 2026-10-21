@@ -362,6 +362,7 @@ from __future__ import annotations
 import fnmatch
 import json
 import os
+import posixpath
 import re
 import sys
 
@@ -1336,7 +1337,9 @@ def _compose_dash_c(parts: list[str]) -> str | None:
         if cur is None or os.path.isabs(expanded):
             cur = raw
             continue
-        cur = os.path.join(cur, raw)
+        # posixpath, not os.path: on Windows os.path.join yields `.claude\hooks`,
+        # which `is_protected` does not recognise, so the composed form went SILENT
+        cur = posixpath.join(cur, raw)
     return cur
 
 

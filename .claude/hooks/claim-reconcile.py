@@ -124,7 +124,8 @@ def main() -> int:
     # otherwise scripts/R/results.rds and scripts/stata/results.rds throttle
     # each other, and clean.R spuriously matches data_clean.R.
     try:
-        changed = str(Path(fp).resolve().relative_to(Path(project_dir).resolve()))
+        # as_posix: passports spell paths with `/`; str() gives `\` on Windows
+        changed = Path(fp).resolve().relative_to(Path(project_dir).resolve()).as_posix()
     except Exception:
         changed = Path(fp).name
 
