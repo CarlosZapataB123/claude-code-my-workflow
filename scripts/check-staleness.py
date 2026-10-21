@@ -16,7 +16,7 @@ def surfaces():
     out = []
     for pat in ["*.md", ".claude/**/*.md", "templates/**/*.md", "guide/*.qmd", "docs/*.html", ".github/**/*.md"]:
         out += glob.glob(os.path.join(ROOT, pat), recursive=True)
-    return [p for p in sorted(set(out)) if not SKIP.search(os.path.relpath(p, ROOT))]
+    return [p for p in sorted(set(out)) if not SKIP.search(os.path.relpath(p, ROOT).replace(os.sep, "/"))]
 
 # (id, description, regex, allow-marker regex or None)
 CHECKS = [
@@ -66,8 +66,11 @@ def main():
         s_path, o_path = os.path.join(ROOT, src), os.path.join(ROOT, out)
         if not (os.path.exists(s_path) and os.path.exists(o_path)):
             continue
-        src_hash = hashlib.sha256(open(s_path, "rb").read()).hexdigest()[:16]
-        out_hash = hashlib.sha256(open(o_path, "rb").read()).hexdigest()[:16]
+        # CRLF -> LF: hash the bytes git stores, not a core.autocrlf checkout's
+        # (on Windows every file differs from its stamp otherwise)
+        lf = lambda p: open(p, "rb").read().replace(b"\r\n", b"\n")
+        src_hash = hashlib.sha256(lf(s_path)).hexdigest()[:16]
+        out_hash = hashlib.sha256(lf(o_path)).hexdigest()[:16]
         rec = recorded.get(out)
         if rec is None:
             render.append(f"{out}: no render stamp — run scripts/stamp-render.sh after rendering")

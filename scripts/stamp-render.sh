@@ -24,8 +24,10 @@ if ! cmp -s "$G" "$D"; then
     echo "  sync first:  cp guide/workflow-guide.html docs/workflow-guide.html" >&2
     exit 1
 fi
-fp() { local h; h="$(shasum -a 256 "$1" 2>/dev/null | cut -c1-16)"; 
-       [ -n "$h" ] || { echo "stamp-render: fingerprint failed for $1 (shasum missing?)" >&2; exit 2; };
+# CRLF -> LF before hashing, exactly as check-staleness.py does: the stamp must
+# record git's bytes, not a core.autocrlf checkout's
+fp() { local h; h="$(perl -pe 's/\r\n/\n/g' "$1" 2>/dev/null | shasum -a 256 2>/dev/null | cut -c1-16)" || h="";
+       [ -n "$h" ] || { echo "stamp-render: fingerprint failed for $1 (perl or shasum missing?)" >&2; exit 2; };
        printf '%s' "$h"; }
 SH="$(fp "$SRC")" || exit 2
 GH="$(fp "$G")"   || exit 2
