@@ -54,7 +54,7 @@ If `--no-novelty-check` is passed, skip this step and note "Novelty check skippe
 Reject at desk if ANY of:
 - **Wrong fit.** Topic / method is clearly out-of-scope for the journal.
 - **No clear contribution.** Reading intro + abstract, you cannot state the contribution in one sentence.
-- **Fatal design flaw visible in the abstract.** Identification is obviously unidentified (e.g., "we regress Y on X with controls"), sample is obviously unrepresentative, unit of analysis doesn't match the claim.
+- **Fatal design flaw visible in the abstract.** Identification is obviously unidentified (e.g., "we regress Y on X with controls"), a cross-sectional design is presented as causal, sample is obviously unrepresentative, unit of analysis doesn't match the claim.
 - **Below the bar.** Would clear a field journal but not this one. Suggest where to send it instead.
 - **Already done.** Novelty check found a published paper covering essentially the same ground.
 - **Cross-artifact reproducibility FAIL.** If `/audit-reproducibility` has already run (Phase 0 of the pipeline) and reported FAIL on load-bearing numbers, treat this as a fatal signal — either a data bug or a manuscript error. Desk-reject with specific citation.
@@ -298,7 +298,7 @@ Peeves are drawn at referee-selection time and injected into referee prompts. Ke
 
 ### Critical peeves (sample 1 per referee in default, 2 per referee in stress)
 
-Seed pool — 26 entries. Expand as you use the system and encounter recurring patterns.
+Seed pool — 34 entries (the last 8 are psychology & public health). Expand as you use the system and encounter recurring patterns.
 
 - Suspicious of too-clean results (point estimates on round numbers, p-values exactly at 0.01).
 - Wants at least 5 robustness specifications, each addressing a different threat.
@@ -326,10 +326,18 @@ Seed pool — 26 entries. Expand as you use the system and encounter recurring p
 - Notation drift — a symbol defined as X in §2 but used with a different meaning in §4 or §5.
 - Seed-dependent results — any bootstrap, simulation, or stochastic procedure without a `set.seed` (or equivalent) stated near the top of the script.
 - Comparability of the compared groups is asserted rather than shown — no table establishing that the units being compared are alike on pre-existing characteristics.
+- The relevant EQUATOR reporting guideline (STROBE, COSMIN, COREQ/SRQR, GRAMMS, PRISMA-ScR) is not followed or its checklist is not supplied.
+- Causal or longitudinal language ("impact", "leads to", "predicts" over time) drawn from cross-sectional data.
+- Instruments used without validity evidence for this population and language, or screening cut-offs reported as diagnoses.
+- Effect sizes missing or reported without confidence intervals; significance treated as importance.
+- Measurement invariance assumed, not tested, when groups (sex, role, region) are compared on scale scores.
+- Common-method bias from single-source self-report not acknowledged or addressed.
+- Ethics approval, informed consent and participant-protection procedures not reported — or re-identification risk ignored in a small, identifiable professional population.
+- Pathologising or non-trauma-informed language about participants or the families of the disappeared.
 
 ### Constructive peeves (sample 1 per referee)
 
-Seed pool — 25 entries.
+Seed pool — 29 entries (the last 4 are psychology & public health).
 
 - Rewards honest acknowledgment of limitations.
 - Values clever natural experiments over technical machinery.
@@ -356,6 +364,10 @@ Seed pool — 25 entries.
 - Appreciates when the author shows alternative model specifications even when the preferred one works — signals robustness, not insecurity.
 - Rewards clear notation tables (symbol → definition → first use) when the paper has heavy math.
 - Values careful attribution — when the paper distinguishes "our contribution" from "we extend X" honestly.
+- Rewards engagement with Latin American and Spanish-language literature, not only English-language work from high-income countries.
+- Values practical implications that the institutions concerned (search teams, employers, health services) could actually implement.
+- Appreciates a completed reporting-guideline checklist submitted with the manuscript.
+- Rewards participant voice in qualitative work — well-chosen quotations that carry the argument.
 
 ## Important rules (7)
 

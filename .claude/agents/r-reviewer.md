@@ -59,14 +59,19 @@ Produce a thorough, actionable code review report. You do NOT edit files — you
 **Flag:** Undocumented functions, magic numbers, unnamed return values, code duplication.
 
 ### 5. DOMAIN CORRECTNESS
-<!-- Customize this section for your field -->
-- [ ] Estimator implementations match the formulas shown on slides
-- [ ] Standard errors use the appropriate method
-- [ ] DGP specifications in simulations match the paper being replicated
-- [ ] Treatment effects are the correct estimand (e.g., ATT vs ATE)
+<!-- Customized 2026-10-21 for psychology & public health -->
+- [ ] The analysis matches what the manuscript's Methods section describes (model, variables, sample restrictions)
+- [ ] Reverse-keyed items are recoded before scoring and before `psych::alpha` / `psych::omega` (check `check.keys` warnings)
+- [ ] Reliability coefficient is the one the manuscript reports (omega vs alpha), computed on the analytic sample
+- [ ] `lavaan` CFA/SEM: `ordered =` and an appropriate estimator (e.g., WLSMV) when items are ordinal and the text says so; fit indices reported in the manuscript are the ones printed by the code
+- [ ] Measurement-invariance steps (configural → metric → scalar) are run as described before groups are compared on scale scores
+- [ ] Missing data: the handling in code (listwise default of `lm`/`glm`, FIML via `missing = "fiml"`, `mice` with pooled results) matches the text; the analytic N is printed and matches the reported N
+- [ ] Effect sizes and 95% confidence intervals are computed by the code, not by hand
+- [ ] Survey weights or clustering, if claimed, are implemented (`survey::svydesign`)
+- [ ] Outputs that leave the machine contain no small cells or free-text that could identify participants (see `.claude/rules/confidential-data.md`)
 - [ ] Check `.claude/rules/r-code-conventions.md` for known pitfalls
 
-**Flag:** Implementation doesn't match theory, wrong estimand, known bugs.
+**Flag:** Implementation doesn't match the manuscript, wrong analytic sample, known package pitfalls, re-identification risk.
 
 ### 6. FIGURE QUALITY
 - [ ] Consistent color palette (check your project's standard colors)

@@ -434,7 +434,7 @@ quality_reports/
 
 ## Field adaptation
 
-The shipped `journal-profiles.md` covers 5 econ journals (AER, QJE, JPE, ECMA, ReStud) plus 3 political-science journals (APSR, AJPS, JOP). For other fields (finance, biology, CS, etc.), copy `templates/journal-profile-template.md` into a new section of `journal-profiles.md` and fill in the schema. See the "Field adaptation" section at the end of `journal-profiles.md` for detailed guidance. The pipeline itself is field-agnostic; only the calibration data changes.
+The shipped `journal-profiles.md` covers 5 econ journals (AER, QJE, JPE, ECMA, ReStud), 3 political-science journals (APSR, AJPS, JOP) and 5 psychology & public health journals (PTRP, JTS, EJPT, BMCPH, RPSP). For other fields (finance, biology, CS, etc.), copy `templates/journal-profile-template.md` into a new section of `journal-profiles.md` and fill in the schema. See the "Field adaptation" section at the end of `journal-profiles.md` for detailed guidance. The pipeline itself is field-agnostic; only the calibration data changes.
 
 For non-econ paper types in `methods-referee.md`, extend the paper-type list (e.g., biology: `observational / experimental / computational / review`).
 
