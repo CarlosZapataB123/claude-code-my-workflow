@@ -105,7 +105,7 @@ pandoc "manuscript.docx" -t gfm --track-changes=all -o "<scratchpad>/manuscript.
 ## Commands
 
 ```bash
-# R analysis (R must be on PATH — Rscript is not on PATH on this machine yet)
+# R analysis (R must be on PATH)
 Rscript scripts/R/00_run_all.R
 
 # Word → Markdown for review
